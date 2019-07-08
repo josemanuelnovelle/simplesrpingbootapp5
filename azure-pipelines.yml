@@ -65,6 +65,6 @@ steps:
         kubernetesServiceEndpoint: 'aksKubernetesServiceConnection'
         namespace: 'default'
         command: 'expose'
-        arguments: 'deployment simpleappspringboot5 --type=LoadBalancer --port=8080 --target-port=8080'
+        arguments: 'deployment simpleappspringboot5 --type=LoadBalancer --port=80 --target-port=8080'
         secretType: 'dockerRegistry'
         containerRegistryType: 'Azure Container Registry'     
