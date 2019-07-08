@@ -56,7 +56,7 @@ steps:
       kubernetesServiceEndpoint: 'aksKubernetesServiceConnection'
       namespace: 'default'
       command: 'run'
-      arguments: 'simpleappspringboot5  --env=SPRING_CONFIG_HOST=dockerruntimeset --image=sanapisregistry.azurecr.io/simpleappspringboot5:latest'
+      arguments: 'simpleappspringboot5  --env=http.client.ssl.key-store=/root/apis-sandbox.jks --image=sanapisregistry.azurecr.io/simpleappspringboot5:latest'
       secretType: 'dockerRegistry'
       containerRegistryType: 'Azure Container Registry' 
 - task: Kubernetes@1
