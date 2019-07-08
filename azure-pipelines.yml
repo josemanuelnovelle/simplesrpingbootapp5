@@ -1,0 +1,70 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'sanapisRegistryServiceConnection'
+    command: 'login'
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: false
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'install -Dmaven.test.skip=true'
+- task: Docker@2
+  inputs:
+     containerRegistry: 'sanapisRegistryServiceConnection'
+     repository: 'simpleappspringboot5'
+     command: 'buildAndPush'
+     Dockerfile: '**/Dockerfile'
+     tags: 'latest'   
+- task: Kubernetes@1
+  continueOnError: true 
+  inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'aksKubernetesServiceConnection'
+        namespace: 'default'
+        command: 'delete'
+        arguments: ' deployment simpleappspringboot5  '
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'          
+- task: Kubernetes@1
+  continueOnError: true 
+  inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'aksKubernetesServiceConnection'
+        namespace: 'default'
+        command: 'delete'
+        arguments: ' service simpleappspringboot5  '
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'               
+- task: Kubernetes@1
+  inputs:
+      connectionType: 'Kubernetes Service Connection'
+      kubernetesServiceEndpoint: 'aksKubernetesServiceConnection'
+      namespace: 'default'
+      command: 'run'
+      arguments: 'simpleappspringboot5  --env=SPRING_CONFIG_HOST=dockerruntimeset --image=sanapisregistry.azurecr.io/simpleappspringboot5:latest'
+      secretType: 'dockerRegistry'
+      containerRegistryType: 'Azure Container Registry' 
+- task: Kubernetes@1
+  inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'aksKubernetesServiceConnection'
+        namespace: 'default'
+        command: 'expose'
+        arguments: 'deployment simpleappspringboot5 --type=LoadBalancer --port=8080 --target-port=8080'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'     
