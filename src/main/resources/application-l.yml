@@ -1,0 +1,9 @@
+spring:
+    application.name: resilience4j-mock
+    jackson.serialization.indent_output: true
+logging:
+    level:
+      root: INFO
+server:
+    port: 8080
+http.client.ssl.key-store: C:\\datos\\SSL\\testapis\\apis-sandbox.jks
