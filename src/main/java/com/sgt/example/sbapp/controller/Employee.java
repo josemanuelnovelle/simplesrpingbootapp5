@@ -29,7 +29,7 @@ public class Employee {
 	@Column(name = "last_name", nullable = false)
 	private String lastName;
 	
-	@Column(name = "email_address", nullable = false)
+	@Column(name = "emailaddress", nullable = false)
 	private String emailId;
  
 	
