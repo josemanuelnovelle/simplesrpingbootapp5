@@ -32,7 +32,8 @@ public class Employee {
 	//@Column(name = "email", nullable = false)
 	//private String email;
 	
- 
+  	@Column(name = "correoelectronico", nullable = false)
+ 	private String correoelectronico;
  
 	
 }
