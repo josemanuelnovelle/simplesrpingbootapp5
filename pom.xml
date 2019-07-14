@@ -8,7 +8,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sgt.example.resilience</groupId>
-	<artifactId>simpleappspringboot</artifactId>
+	<artifactId>simpleappspringboot5</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>resilience</name>
 	<description>Demo project for Spring Boot</description>
