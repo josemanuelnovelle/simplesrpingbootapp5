@@ -72,8 +72,9 @@ public class MockController {
         		"P4ssW0rD").newInstance();
 		
 		
-        System.out.println("llll "+keyStore.getCertificate("testapisecret"));
-		
+        //System.out.println("llll "+keyStore.getCertificate("testapisecret"));
+        System.out.println("llll "+keyStore.getCertificate("sslpostgresql"));
+        
 		return new ResponseEntity<>(response  , HttpStatus.OK);
 	}
 
