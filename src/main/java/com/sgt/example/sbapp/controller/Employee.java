@@ -30,7 +30,7 @@ public class Employee {
 	private String lastName;
 	
 	@Column(name = "emailaddress", nullable = false)
-	private String emailId;
+	private String emailaddress;
  
 	
 }
