@@ -63,7 +63,7 @@ public class EmployeeController {
 		Employee employee = employeeService.serviceEmployee(employeeId);
 			 
 
-		employee.setEmail(employeeDetails.getEmail());
+	//	employee.setEmail(employeeDetails.getEmail());
 		employee.setLastName(employeeDetails.getLastName());
 		employee.setFirstName(employeeDetails.getFirstName());
 		final Employee updatedEmployee = employeeService.serviceEmployeesave(employee);
